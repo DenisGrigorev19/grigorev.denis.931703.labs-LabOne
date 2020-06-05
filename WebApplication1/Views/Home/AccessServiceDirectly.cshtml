@@ -1,0 +1,17 @@
+﻿@inject WebApplication1.Services.IRandomNumberGenerator RandomNumberGenerator
+@{ 
+    int num1 = RandomNumberGenerator.RetRand();
+    int num2 = RandomNumberGenerator.RetRand();
+}
+<h2>AccessServiceDirectly</h2>
+
+<p>Rand value first: @num1</p>
+<p>Rand value second: @num2</p>
+<p>Add:</p>
+<p>@num1 + @num2 = @RandomNumberGenerator.plus(num1,num2)</p>
+<p>Sub:</p>
+<p>@num1 - @num2 = @RandomNumberGenerator.minus(num1, num2)</p>
+<p>Mult:</p>
+<p>@num1 * @num2 = @RandomNumberGenerator.multiply(num1, num2)</p>
+<p>Div:</p>
+<p>@num1 / @num2 = @RandomNumberGenerator.divide(num1, num2)</p>
