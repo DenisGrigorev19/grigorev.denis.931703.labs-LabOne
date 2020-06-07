@@ -15,29 +15,66 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult PassUsingModel()
+        public IActionResult ManualParsingInSingle()
         {
-            var viewModel = new RNG();
-            return View(viewModel);
+            if (Request.Method.Equals("POST", StringComparison.OrdinalIgnoreCase))
+            {
+                Numbers numbers = new Numbers();
+                numbers.num1 = Int32.Parse(Request.Form["num1"]);
+                numbers.num2 = Int32.Parse(Request.Form["num2"]);
+                numbers.operation = Request.Form["operation"];
+                numbers.Count();
+                return View("Result", numbers);
+            }
+            else return View();
         }
 
-        public IActionResult PassUsingViewData()
-        {
-            ViewData["RNG"] = new RNG();
-            return View();
-        }
-
-        public IActionResult PassUsingViewBag()
-        {
-            ViewBag.rng = new RNG();
-            return View();
-        }
-
-        public IActionResult AccessServiceDirectly()
+        [HttpGet]
+        public IActionResult ManualParsingInSeparate()
         {
             return View();
         }
 
+        [HttpPost, ActionName("ManualParsingInSeparate")]
+        public IActionResult ManualParsingInSeparatePost()
+        {
+            Numbers numbers = new Numbers();
+            numbers.num1 = Int32.Parse(Request.Form["num1"]);
+            numbers.num2 = Int32.Parse(Request.Form["num2"]);
+            numbers.operation = Request.Form["operation"];
+            numbers.Count();
+            return View("Result", numbers);
+        }
+
+        [HttpGet]
+        public IActionResult ModelBindingInParams()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ModelBindingInParams(int num1, int num2, string operation)
+        {
+            Numbers numbers = new Numbers();
+            numbers.num1 = num1;
+            numbers.num2 = num2;
+            numbers.operation = operation;
+            numbers.Count();
+            return View("Result", numbers);
+        }
+
+        [HttpGet]
+        public IActionResult ModelBindingInSeparateModel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ModelBindingInSeparateModel(Numbers numbers)
+        {
+            numbers.Count();
+            return View("Result", numbers);
+        }
 
         public IActionResult Error()
         {
